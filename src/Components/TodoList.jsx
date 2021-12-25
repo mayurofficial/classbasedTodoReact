@@ -6,11 +6,13 @@ export class TodoList extends Component {
         super(); // used to call the constructor of parent class...
         this.state = {
             input : '',
-            listArr : []
+            listArr : (localStorage.length >0) ? JSON.parse(localStorage.getItem('todoList')) : []
         }
         this.changeHandler = this.changeHandler.bind(this)
         this.addTodo = this.addTodo.bind(this)
+        console.log(localStorage.getItem('todoList'));
     }
+    
     changeHandler(e){
         const data = e.target.value
         this.setState({
@@ -21,6 +23,7 @@ export class TodoList extends Component {
         this.setState({
             listArr : [...this.state.listArr, this.state.input]
         })
+        
     }
 
 
@@ -40,6 +43,7 @@ export class TodoList extends Component {
             this.setState({
                 input : ''
             })
+            localStorage.setItem('todoList', JSON.stringify(this.state.listArr)) 
         }
        
         
